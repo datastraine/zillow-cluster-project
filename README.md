@@ -24,8 +24,14 @@ The data we are looking at is the Zillow data provided by the CodeUp(TM) and foc
 The SQL used to pull the data can be found via the [acquire.py]() function located in this repo. In addition to pulling the basic data from the DB, it also does some pre-prep work by including a summarize, a function to count the number of missing rows per column, and count the number of missing columns per row.
 
 ## Prepare
-After pulling the data using the acquire.py function I determined that single unit properties would be those properties zoned referred as Single-Family within the [Investors And Housing Affordability Report](https://www.aeaweb.org/conference/2020/preliminary/paper/ndkr58Tk) (downloads a PDF) which was built using Zillow data.
+After pulling the data using the acquire.py function I determined that single unit properties would be those properties zoned referred as Single-Family within the [Investors And Housing Affordability Report](https://www.aeaweb.org/conference/2020/preliminary/paper/ndkr58Tk) (downloads a PDF) which was built using Zillow data. 
 
+>>> 
+Single-family: single family residential; townhouse; row house; mobile home; cluster home;
+seasonal, cabin, vacation residence; bungalow; zero lot line; patio home; manufactured,
+modular, prefabricated homes; garden home; planned unit development; rural residence;
+residential general; inferred single family residential.>
+>>>
 
 In addition to eliminating properties that do not meet the above definition of a single family home, I created some additional features from the data to include
 - More Than Two Baths 
