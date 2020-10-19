@@ -65,6 +65,7 @@ def wrangle_zillow():
     Drops calculatedbathnbr, fullbathcnt,  columns 
     Drops columns where the percentage of missing data is over 40%
     Drop rows where the percentage of missing data is over 50%
+    Eliminates outliers above the the split difference between the 3rd quartile and max value.
     Splits the data into train, validate, test sets
     Imputes missing values with median and mode values from the test set were appropriate and drops remaining null rows
     Returns train, valiate, test sets
@@ -78,8 +79,8 @@ def wrangle_zillow():
     df.drop(columns = [c for c in df.columns if c.endswith('.1')], inplace=True)
     df['has_pool'] = df['poolcnt'] == 1
     df['has_basement'] = df['basementsqft'] > 0
-    df['taxdollar_per_lotsqft'] = round(df['lotsizesquarefeet']/df['taxvaluedollarcnt'], 0)
-    df['taxdollar_per_strcturesqft'] = round(df['calculatedfinishedsquarefeet']/df['taxvaluedollarcnt'], 0)
+    df['taxdollar_per_lotsqft'] = round(df['taxvaluedollarcnt']/df['lotsizesquarefeet'], 2)
+    df['taxdollar_per_strcturesqft'] = round(df['taxvaluedollarcnt']/df['calculatedfinishedsquarefeet'], 2)
     df['more_than_two_bath'] = (df.bathroomcnt > 2).astype('int')
     df.heatingorsystemdesc.fillna('none', inplace = True)
     df.hashottuborspa.fillna(0, inplace = True)
