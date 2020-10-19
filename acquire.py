@@ -70,8 +70,8 @@ def row_data(df):
 	row_data = pd.DataFrame(df.isnull().sum(axis=1).value_counts().sort_values())
 	row_data.reset_index(inplace = True)
 	row_data.columns = ['num_cols_missing', 'num_rows']
-	row_data['pct_cols_missing'] = column_data['num_cols_missing']/df.shape[1]
-	row_data = column_data.sort_values('num_cols_missing').reset_index(drop= True)
+	row_data['pct_cols_missing'] = row_data['num_cols_missing']/df.shape[1]
+	row_data = row_data.sort_values('num_cols_missing').reset_index(drop= True)
 	return row_data
 
 def columns_data(df):

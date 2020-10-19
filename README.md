@@ -27,10 +27,7 @@ The SQL used to pull the data can be found via the [acquire.py]() function locat
 After pulling the data using the acquire.py function I determined that single unit properties would be those properties zoned referred as Single-Family within the [Investors And Housing Affordability Report](https://www.aeaweb.org/conference/2020/preliminary/paper/ndkr58Tk) (downloads a PDF) which was built using Zillow data. 
 
 >>> 
-Single-family: single family residential; townhouse; row house; mobile home; cluster home;
-seasonal, cabin, vacation residence; bungalow; zero lot line; patio home; manufactured,
-modular, prefabricated homes; garden home; planned unit development; rural residence;
-residential general; inferred single family residential.>
+Single-family: single family residential; townhouse; row house; mobile home; cluster home; seasonal, cabin, vacation residence; bungalow; zero lot line; patio home; manufactured, modular, prefabricated homes; garden home; planned unit development; rural residence; residential general; inferred single family residential.
 >>>
 
 In addition to eliminating properties that do not meet the above definition of a single family home, I created some additional features from the data to include
