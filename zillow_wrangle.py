@@ -75,7 +75,8 @@ def wrangle_zillow():
     df.drop(columns = ['buildingclasstypeid', 'typeconstructiontypeid', 'storytypeid',
                    'propertylandusetypeid', 'heatingorsystemtypeid', 'architecturalstyletypeid',
                    'airconditioningtypeid', 'id', 'parcelid' , 'unitcnt', 'propertyzoningdesc', 
-                   'finishedsquarefeet12', 'calculatedbathnbr', 'finishedsquarefeet12', 'fullbathcnt'], inplace = True)
+                   'finishedsquarefeet12', 'calculatedbathnbr', 'finishedsquarefeet12', 'fullbathcnt', 
+                   'propertycountylandusecode', 'propertylandusedesc', 'transactiondate'], inplace = True)
     df.drop(columns = [c for c in df.columns if c.endswith('.1')], inplace=True)
     df['has_pool'] = df['poolcnt'] == 1
     df['has_basement'] = df['basementsqft'] > 0
