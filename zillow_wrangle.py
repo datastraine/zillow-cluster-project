@@ -82,7 +82,7 @@ def wrangle_zillow():
     df['taxdollar_per_lotsqft'] = round(df['taxvaluedollarcnt']/df['lotsizesquarefeet'], 2)
     df['taxdollar_per_strcturesqft'] = round(df['taxvaluedollarcnt']/df['calculatedfinishedsquarefeet'], 2)
     df['more_than_two_bath'] = (df.bathroomcnt > 2).astype('int')
-    df.heatingorsystemdesc.fillna('none', inplace = True)
+    df.heatingorsystemdesc.fillna('None', inplace = True)
     df.hashottuborspa.fillna(0, inplace = True)
     df.replace({True:1, False:0}, inplace = True)
     df = handle_missing_values(df, .6, .5)
@@ -154,14 +154,16 @@ def wrangle_zillow():
     
     # Get a list of zip values from the train set and remove the nan value
     zips = train[['regionidcity', 'censustractandblock','regionidzip']].loc[train['regionidcity'].isnull()].regionidzip.unique()
-    zips = [96989., 97023., 96973., 96403., 96373., 96292., 96346.,
-    96993., 96377., 96295., 96395., 96494., 96956., 96962., 96244.,
-    96488., 96186., 96040., 97065., 96975., 96990., 97048., 96337.,
-    96492., 96969., 96270., 96982., 96489., 96221., 97083., 96044.,
-    96374., 97047., 96505., 96284., 96203., 96398., 97026., 97081.,
-    97008., 96342., 96387., 97003., 96368., 96273., 96959., 96247.,
-    96126., 97005., 96507., 97016., 96242., 97043., 96352., 96174.,
-    97027., 96169., 96225., 96110.]
+    zips = [12447.,  24832.,  24435.,  18874.,  13693.,  22827.,
+        20008.,  16764.,  34543.,  33252.,  34780.,  39308.,  27491.,
+        32923.,  54311.,  47568.,  14634.,  10734.,  32380.,  46298.,
+        24384.,  47019.,  24812.,  38032.,   8384.,  39306.,  37688.,
+        39076.,  42967., 118217.,  18875., 118694.,  45602.,  52842.,
+        40081.,  17597.,  54970.,  15554.,  40009., 396556., 113576.,
+        54352.,  17882.,  17150., 118895.,  14542., 118994.,  16677.,
+        56780.,  12773.,  38980.,  47762.,  42091.,  30187., 114834.,
+        14906.,  47547.,  25271.,  50749.,  17686.,  12292.,  53571.,
+        45457.,  32927.,  44833.,  24174.,  21778.,  30908.]
 
     # Finds most fequent regionidcity for each zipcode in the train data set
     findcity = train[['regionidcity', 'regionidzip']].loc[(train['regionidzip'].isin(zips))]
@@ -169,16 +171,18 @@ def wrangle_zillow():
     # Creates a data frame of those pairs and renames the columns
     pairs = pd.DataFrame(findcity.groupby('regionidzip')['regionidcity'].agg(pd.Series.mode)).reset_index()
     pairs.columns = ['zips', 'most_regionid']
+    pairs = pairs[pairs['zips'] != 96395.0]
 
     # merges pairs data frame across the train, validate, and test data sets
-    train = train.merge(pairs, how='left', left_on='regionidzip', right_on='zips', copy=False)
-    validate = validate.merge(pairs, how='left', left_on='regionidzip', right_on='zips', copy=False)
-    test = test.merge(pairs, how='left', left_on='regionidzip', right_on='zips', copy=False)
+    train = train.merge(pairs, how='left', left_on='regionidzip', right_on='zips')
+    validate = validate.merge(pairs, how='left', left_on='regionidzip', right_on='zips')
+    test = test.merge(pairs, how='left', left_on='regionidzip', right_on='zips')
+
 
     # Fills missing regionidcity with the most_regionid_y values for each data set
-    train['regionidcity'].fillna('most_regionid_y', inplace=True)
-    validate['regionidcity'].fillna('most_regionid_y', inplace=True)
-    test['regionidcity'].fillna('most_regionid_y', inplace=True)
+    train.regionidcity.fillna(train.most_regionid, inplace=True)
+    validate.regionidcity.fillna(validate.most_regionid, inplace=True)
+    test.regionidcity.fillna(test.most_regionid, inplace=True)
     # Drop the extra columns
     train.drop(columns=['zips', 'most_regionid'], inplace=True)
     validate.drop(columns=['zips', 'most_regionid'], inplace=True)
