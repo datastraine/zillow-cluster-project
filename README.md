@@ -1,7 +1,5 @@
 # Zillow Clustering Project
 ## Table of Contents
-- [Zillow Clustering Project](#zillow-clustering-project)
-  - [Table of Contents](#table-of-contents)
 - [Goal](#goal)
 - [Wrangle](#wrangle)
   - [Acquire](#acquire)
