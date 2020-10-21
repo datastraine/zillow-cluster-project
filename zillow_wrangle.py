@@ -59,16 +59,17 @@ def wrangle_zillow():
     Creates a has_basement column where basementsqft > 0.
     Creates a taxdollar_per_lotsqft  feature.
     Creates taxdollar_per_strcturesqft feature.
-    Creates a more_than_two_bath column
+    Creates a more_than_two_bath feature
     Replaces nan values with 'none' for heatingorsystemdesc
     Replaces nan values with 0 for hashottuborspa. This was done because the only values were nan or 1
-    Drops calculatedbathnbr, fullbathcnt,  columns 
+    Drops calculatedbathnbr, fullbathcnt, finishedsquarefeet12, fullbathcnt, propertycountylandusecode, 
+        propertylandusedesc, and transactiondate columns.
     Drops columns where the percentage of missing data is over 40%
-    Drop rows where the percentage of missing data is over 50%
+    Drops rows where the percentage of missing data is over 50%
     Eliminates outliers above the the split difference between the 3rd quartile and max value.
     Splits the data into train, validate, test sets
     Imputes missing values with median and mode values from the test set were appropriate and drops remaining null rows
-    Returns train, valiate, test sets
+    Returns train, validate, test sets
     '''
     df = acquire.load_zillow_data()
     df = df[df.propertylandusetypeid.isin([260, 261, 262, 263, 264, 265, 268, 275, 276, 279])]
