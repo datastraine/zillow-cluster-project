@@ -36,7 +36,7 @@ In addition to eliminating properties that do not meet the above definition of a
 - Has a pool
 - Has a basement
 
-A data dictionary with all features that are used within the final product can be found [here]()
+A data dictionary with all the features from the data set, including those created can be found [here](https://github.com/datastraine/zillow-cluster-project/blob/main/DataDictionary.md)
 
 The final step in my prep phase was to detect upper bound outliers using IQR * 1.5 rule. I then choose to remove any outlier that was greater than the split difference between the max and the 3rd quantile as there were over 1000 rows of outliers and this eliminated the most extreme upper bound cases. 
 
